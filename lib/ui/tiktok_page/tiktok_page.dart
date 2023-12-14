@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiktok/ui/tiktok_page/tiktok_page_vm.dart';
+import 'package:tiktok/ui/tiktok_page/widget/video_widget.dart';
 
 class TiktokPage extends StatefulWidget {
   const TiktokPage({super.key});
@@ -28,8 +31,31 @@ class _TiktokPageState extends State<TiktokPage> {
     return GetBuilder<TiktokPageVM>(
       builder: (logic) {
         return SafeArea(
-          child: Container(
-            color: Colors.black,
+          child: Stack(
+            alignment: Alignment.center,
+          children: [
+            PageView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: vm.listVideos.length,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: const VideoWidget(),
+                );
+              },
+            ),
+            const Positioned(
+              top: 10,
+              child: Text(
+                'Popular video',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white
+                ),
+              ),
+            ),
+          ],
           ),
         );
       },

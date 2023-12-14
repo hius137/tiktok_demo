@@ -9,8 +9,4 @@ class MainVM extends GetxController{
     controller.jumpToPage(index);
     print("$index");
   }
-
-  void onIndexChange(int index) {
-
-  }
 }
