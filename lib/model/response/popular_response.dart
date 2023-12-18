@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:tiktok/model/entity/video_entity.dart';
+import 'package:tiktok/model/response/video_response.dart';
 
 PopularResponse popularResponseFromJson(String str) => PopularResponse.fromJson(json.decode(str));
 

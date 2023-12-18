@@ -17,14 +17,27 @@ class VideoWidget extends StatefulWidget {
 class _VideoWidgetState extends State<VideoWidget> {
   late VideoPlayerController _videoPlayerController;
 
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
-    _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
-      ..initialize().then((value) {
-        _videoPlayerController.play();
-        _videoPlayerController.setVolume(1);
-      });
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
+          ..initialize().then((value) {
+            if (mounted) {
+              _videoPlayerController.play();
+              _videoPlayerController.setVolume(1);
+
+              Future.delayed(const Duration(seconds: 1)).then(
+                (value) => setState(
+                  () {
+                    isLoading = false;
+                  },
+                ),
+              );
+            }
+          });
   }
 
   @override
@@ -33,7 +46,6 @@ class _VideoWidgetState extends State<VideoWidget> {
     _videoPlayerController.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -41,7 +53,18 @@ class _VideoWidgetState extends State<VideoWidget> {
       height: MediaQuery.of(context).size.height,
       child: Stack(
         children: [
-          VideoPlayer(_videoPlayerController),
+          isLoading
+              ? Container(
+                  color: Colors.blueGrey,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : VideoPlayer(
+                  _videoPlayerController,
+                ),
           Positioned(
             bottom: 150,
             right: 10,

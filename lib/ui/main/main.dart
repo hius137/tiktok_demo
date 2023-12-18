@@ -13,6 +13,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   MainVM vm = Get.put<MainVM>(MainVM());
+  List<IconData> listIcon = [Icons.tiktok, Icons.facebook];
 
   @override
   void initState() {
@@ -63,6 +64,7 @@ class _MainPageState extends State<MainPage> {
               onTap: () => vm.onPageChange(index),
               child: _itemBottom(
                 index,
+                listIcon,
               ),
             ),
           ),
@@ -73,13 +75,14 @@ class _MainPageState extends State<MainPage> {
 
   Widget _itemBottom(
     int index,
+    List<IconData> listIcon,
   ) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
       ),
-      child: const Icon(Icons.tiktok),
+      child: Icon(listIcon[index]),
     );
   }
 }

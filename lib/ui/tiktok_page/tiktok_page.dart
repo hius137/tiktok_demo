@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tiktok/model/entity/video_entity.dart';
+import 'package:tiktok/model/response/video_response.dart';
 import 'package:tiktok/ui/tiktok_page/tiktok_page_vm.dart';
 import 'package:tiktok/ui/tiktok_page/widget/video_widget.dart';
 
@@ -31,7 +31,6 @@ class _TiktokPageState extends State<TiktokPage> {
   Widget build(BuildContext context) {
     return GetBuilder<TiktokPageVM>(
       builder: (logic) {
-        // List<VideoEntity> listVideos = logic.listVideos;
         return SafeArea(
           child: Stack(
             alignment: Alignment.center,
@@ -41,11 +40,10 @@ class _TiktokPageState extends State<TiktokPage> {
                 itemCount: vm.listVideos.length,
                 itemBuilder: (context, index) {
                   return SizedBox(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height,
-                    child: VideoWidget(videoUrl: vm.listVideos[index].url ?? ""),
+                    height: MediaQuery.of(context).size.height,
+                    child: VideoWidget(
+                        videoUrl:
+                            vm.listVideos[index].videoFiles.first.link ?? ""),
                   );
                 },
               ),
@@ -56,8 +54,7 @@ class _TiktokPageState extends State<TiktokPage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.white
-                  ),
+                      color: Colors.white),
                 ),
               ),
             ],

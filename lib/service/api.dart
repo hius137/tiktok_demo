@@ -5,4 +5,5 @@ class Api {
 
   ///
   static const apiPopular = "/videos/popular";
+  static const apiImages = "/v1/curated";
 }

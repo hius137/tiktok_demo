@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.6
   dio: ^5.4.0
   video_player: ^2.8.1
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:
